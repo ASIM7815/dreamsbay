@@ -301,33 +301,47 @@ if (contactForm) {
         if (name && childName && email && phone && age && program && message) {
             // Show success message
             formMessage.className = 'form-message success';
-            formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your interest! We will contact you shortly to discuss admission details.';
-            
-            // Reset form
-            contactForm.reset();
+            formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your interest! Opening phone dialer...';
+            formMessage.style.display = 'block';
             
             // Scroll to message
             formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
-            // Hide message after 8 seconds
-            setTimeout(() => {
-                formMessage.style.display = 'none';
-            }, 8000);
+            // Phone number for dialer
+            const phoneNumber = '+917842957711';
             
-            // In real application, send data to server
-            console.log('Enquiry submitted:', { 
-                name, 
-                childName, 
-                email, 
-                phone, 
-                age, 
-                program, 
-                message 
-            });
+            // Open phone dialer after a short delay
+            setTimeout(() => {
+                window.location.href = `tel:${phoneNumber}`;
+                
+                // Update message
+                formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Please call us to complete your admission enquiry. Your form details have been noted!';
+                
+                // Log form data (can be sent to backend in production)
+                console.log('Enquiry submitted:', { 
+                    name, 
+                    childName, 
+                    email, 
+                    phone, 
+                    age, 
+                    program, 
+                    message 
+                });
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Hide message after 8 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 8000);
+            }, 1000);
+            
         } else {
             // Show error message
             formMessage.className = 'form-message error';
             formMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill in all fields to submit your enquiry.';
+            formMessage.style.display = 'block';
             
             // Hide message after 5 seconds
             setTimeout(() => {
