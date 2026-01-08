@@ -64,12 +64,167 @@
     --transition-slow: 0.5s ease;
 }
 
+/* Dark Mode Variables */
+body.dark-mode {
+    --white: #1a1a2e;
+    --light-color: #16213e;
+    --text-color: #e4e4e4;
+    --text-light: #b8b8b8;
+    --dark-color: #e4e4e4;
+    --primary-color: #5a9aa8;
+    --primary-dark: #4a8896;
+    --db-cream: #2d2d44;
+    --db-beige: #3a3a52;
+    --db-light-beige: #2a2a40;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Add transitions to all elements that change in dark mode */
+.navbar,
+.hero,
+.about,
+.programs,
+.vision,
+.gallery,
+.contact,
+.footer,
+.program-card,
+.stat-card,
+.vision-card,
+.contact-form,
+.section-badge,
+.btn-primary,
+.gallery-item img,
+.contact-info,
+.quote-box,
+.info-item,
+.hero-overlay,
+.opening-soon-badge,
+.form-group input,
+.form-group textarea,
+.form-group select,
+.form-group label,
+.program-badge {
+    transition: background 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+}
+
+body.dark-mode .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+body.dark-mode .about,
+body.dark-mode .programs,
+body.dark-mode .gallery,
+body.dark-mode .contact {
+    background-color: #16213e;
+}
+
+body.dark-mode .vision {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+body.dark-mode .navbar {
+    background: rgba(26, 26, 46, 0.95);
+}
+
+body.dark-mode .navbar.scrolled {
+    background: rgba(26, 26, 46, 0.98);
+}
+
+body.dark-mode .program-card,
+body.dark-mode .stat-card,
+body.dark-mode .vision-card,
+body.dark-mode .contact-form {
+    background: #2d2d44;
+    color: #e4e4e4;
+}
+
+body.dark-mode .section-badge {
+    background: rgba(90, 154, 168, 0.1);
+    color: #5a9aa8;
+}
+
+body.dark-mode .btn-primary {
+    background: linear-gradient(135deg, #5a9aa8 0%, #4a8896 100%);
+}
+
+body.dark-mode .footer {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f1419 100%);
+}
+
+body.dark-mode .gallery-item img {
+    filter: brightness(0.9);
+}
+
+body.dark-mode .modal-content {
+    filter: brightness(0.95);
+}
+
+body.dark-mode .contact-info {
+    background: #2d2d44;
+}
+
+body.dark-mode .quote-box {
+    background: rgba(90, 154, 168, 0.1);
+    border-left-color: #5a9aa8;
+}
+
+body.dark-mode .info-item {
+    background: rgba(90, 154, 168, 0.05);
+}
+
+body.dark-mode .hero-overlay {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.7) 0%, rgba(22, 33, 62, 0.8) 100%);
+}
+
+body.dark-mode .opening-soon-badge {
+    background: rgba(90, 154, 168, 0.2);
+    color: #e4e4e4;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e4e4e4;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .form-group label {
+    color: #b8b8b8;
+}
+
+body.dark-mode .program-badge {
+    background: linear-gradient(135deg, #5a9aa8 0%, #4a8896 100%);
+}
+
+/* Dark mode for mobile menu */
+body.dark-mode .nav-menu {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%) !important;
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
     overflow-x: hidden;
     width: 100%;
     scroll-padding-top: 80px; /* Offset for fixed navbar */
+    color-scheme: light;
+}
+
+/* Prevent system dark mode from affecting the site */
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: light;
+    }
+    
+    body:not(.dark-mode) {
+        background-color: #FFFFFF !important;
+        color: #6B5437 !important;
+    }
 }
 
 body {
@@ -83,6 +238,13 @@ body {
     position: relative;
     font-weight: 400;
     letter-spacing: -0.01em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color-scheme: light;
+}
+
+/* When dark mode is active via our toggle */
+body.dark-mode {
+    color-scheme: dark;
 }
 
 .container {
@@ -333,6 +495,81 @@ h1, h2, h3, h4, h5, h6 {
 
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ===================================
+   THEME TOGGLE (Mobile Only)
+   =================================== */
+
+.mobile-theme-toggle {
+    display: none;
+}
+
+.theme-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.theme-icon {
+    color: var(--white);
+    font-size: 20px;
+    transition: all var(--transition-normal);
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s;
+    border-radius: 34px;
+    backdrop-filter: blur(10px);
+}
+
+.theme-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background: linear-gradient(135deg, #F2C94C 0%, #E8B899 100%);
+    transition: all 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .theme-slider {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+input:checked + .theme-slider:before {
+    transform: translateX(30px);
+    background: linear-gradient(135deg, #5a9aa8 0%, #4a8896 100%);
+}
+
+.theme-slider:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* ===================================
@@ -2279,6 +2516,11 @@ section {
         justify-content: center;
         visibility: hidden;
         opacity: 0;
+    }
+    
+    /* Show theme toggle only on mobile */
+    .mobile-theme-toggle {
+        display: block !important;
     }
 
     .nav-menu::before {
